@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Chat Interface</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-area" id="chatArea">
+        <div id="response" class="chat-response"></div>
+    </div>
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="Type your message here...">
+        <button id="submitBtn" class="btn chat-button">Submit</button>
+    </div>
+</div>
+
+<!-- Link to the external JavaScript file -->
+<script>
+        document.getElementById('submitBtn').addEventListener('click', async function() {
+            var userInput = document.getElementById('userInput').value;
+            document.getElementById('response').innerHTML = '<p>Processing...</p>';
+            const formData = new FormData();
+            formData.append('query', userInput); 
+            try {
+                const response = await fetch('/get_response', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    console.error('Network response was not ok. Status:', response.status);
+                    console.error('Response text:', await response.text());
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                document.getElementById('response').innerHTML = `<p>${data.answer}</p><br>`;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('response').innerHTML = '<p>Error processing your request</p>';
+            }
+        });
+
+    </script>
+
+</body>
+</html>

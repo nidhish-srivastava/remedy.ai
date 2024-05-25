@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Streaming Client</title>
+</head>
+<body>
+    <h1>LLM Streaming Client</h1>
+    <textarea id="prompt" placeholder="Enter your prompt here"></textarea><br>
+    <button onclick="connectWebSocket()">Start LLM</button><br>
+    <div id="output"></div>
+
+    <script>
+        const outputElement = document.getElementById('output');
+
+        function connectWebSocket() {
+            const prompt = document.getElementById('prompt').value;
+            const socket = new WebSocket('ws://localhost:8000/invoke_llm?prompt=' + encodeURIComponent(prompt));
+
+            socket.onopen = function(event) {
+                console.log('WebSocket connection established');
+            };
+
+            socket.onmessage = function(event) {
+                outputElement.innerText += event.data + '\n';
+            };
+
+            socket.onerror = function(error) {
+                console.error('WebSocket error:', error);
+            };
+        }
+    </script>
+</body>
+</html>

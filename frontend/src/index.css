@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+}
+.glass-effect-navbar {
+  backdrop-filter: blur(50px); /* Apply a blur effect to the background */
+  border-radius: 20px; /* Adjust the border-radius to control the shape */
+  padding: 0.5rem 2rem; /* Adjust padding as needed */
+  box-shadow: 0 2px 4px rgba(167, 110, 110, 0.1); /* Add a subtle shadow for a floating effect */
+  z-index: 400; /* Ensure the navbar appears above other content */
+  color: black;
+  background-color: rgb(244, 242, 242); /* Glass effect background color */
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #6d13ff, #318fb5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.active {
+  /* background-color: rgba(31, 20, 20, 0.2);*/
+  background-color: rgb(62, 40, 40);
+  border-radius: 1rem; /* Rounded corners for the active link */
+  /* color: black; Text color for active link */
+  color: white; /* Text color for active link */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for active link */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.input {
+  @apply w-full px-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primary text-[16px] leading-7  placeholder:text-textC rounded-md;
+}
+
+.heading {
+  @apply text-5xl font-bold text-head;
+}

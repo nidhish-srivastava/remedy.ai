@@ -21,9 +21,10 @@ PyMuPDF==1.24.4
 PyMuPDFb==1.24.3
 pypdf==4.1.0
 requests==2.31.0
-sentence-transformers==2.7.0
 starlette==0.36.3
 tokenizers==0.19.1
 tqdm==4.66.2
-transformers==4.41.1
 uvicorn==0.29.0
+python-dotenv
+IPython
+python-multipart

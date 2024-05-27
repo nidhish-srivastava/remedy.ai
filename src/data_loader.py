@@ -2,7 +2,7 @@ import os
 import traceback
 from typing import Any, Dict, List, Optional
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.document_loaders.pdf import PyPDFLoader
+from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_core.documents import Document
 # import google
 import google.generativeai as genai
@@ -45,9 +45,11 @@ def load_img(
     print("Loading Image")
     img_path = pathlib.Path(file_path)
     img = PIL.Image.open(img_path)
-
+    prompt_template = '''
+    Read all the text that you can from the given image. If the image contains handwritten text, carefully read and transcribe all the text, ensuring accuracy despite the challenging handwriting. If the image includes printed text, read and transcribe the text as accurately as possible. If the image contains a combination of handwritten and printed text, read and transcribe all the text, ensuring accuracy in both cases. Please proceed with the transcription.
+    '''
     # Generate content from the image
-    response = model.generate_content(["Read all the text that you can from the given image", img], stream=True)
+    response = model.generate_content([prompt_template, img], stream=True)
     response.resolve()
     text = response.text
     logging.info(f"Text from image: {text}")
@@ -86,7 +88,7 @@ def load_pdf(
         chunk_size=chunk_size, chunk_overlap=chunk_overlap
     )
     try:
-        loader = PyPDFLoader(file_name)
+        loader = PyMuPDFLoader(file_name)
         data = loader.load()
         docs = text_splitter.split_documents(data)
     except Exception as e2:

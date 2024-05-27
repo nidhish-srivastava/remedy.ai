@@ -9,11 +9,24 @@ import os
 import logging
 from pinecone import Index, Pinecone, PodSpec, ServerlessSpec
 import uuid
+from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 
 
+hf_inference_api_key = os.getenv("HF_INFERENCE_API_KEY")
 pinecone_api_key = os.getenv("PINECONE_API_KEY")
 pinecone_index_name = os.getenv("PINECONE_INDEX_NAME")
 embedding_model = os.getenv("EMBEDDING_MODEL")
+API_URL = "https://api-inference.huggingface.co/models/BAAI/bge-large-en-v1.5"
+
+def embed_text(texts):
+    embeddings = HuggingFaceInferenceAPIEmbeddings(
+    api_key=hf_inference_api_key, model_name="BAAI/bge-large-en-v1.5",api_url=API_URL
+    )
+    if isinstance(texts, str):
+        texts = [texts]
+    embedding = embeddings.embed_documents(texts)
+    return embedding
+
 
 def get_or_create_index(
     client: Pinecone,
@@ -40,7 +53,7 @@ def get_or_create_index(
         PineconeException: If there is an error interacting with the Pinecone service.
     """
 
-    
+    logging.info(f"Creating index {index} with metric {metric} and dimension {dimension}")
     spec = ServerlessSpec(
         cloud="aws",
         region="us-east-1"
@@ -76,15 +89,15 @@ def get_or_create_index(
         except Exception as e:
             logging.error(f"Error creating index, because {e}")
 
-    index = client.Index(index)
+    index_name = client.Index(index)
 
-    return index
+    return index_name
 
 def pinecone_upload(
     client: Pinecone,
     docs: List[Document],
     ids: Optional[List[str]] = None,
-    embedding_model: str = "BAAI/bge-large-en",
+    embedding_model: str = "BAAI/bge-large-en-v1.5",
     dimension: int = 1024,
     namespace: Optional[str] = None,
     index_name: str = pinecone_index_name,
@@ -101,14 +114,14 @@ def pinecone_upload(
     If namespace is not None, the function uses the Pinecone.from_texts() method to upload the documents with embeddings to the index, specifying the index_name, namespace, and a batch size of 40.
     If namespace is None, the function uses the Pinecone.from_texts() method to upload the documents with embeddings to the index, specifying the index_name and a batch size of 40.
     """
-
-    index = get_or_create_index(client, index_name, metric, embedding_model, dimension)
+    logging.info(index_name)
+    indexx = get_or_create_index(client, index_name, metric, embedding_model, dimension)
 
     texts = [doc.page_content for doc in docs]
     metadata_list = [doc.metadata for doc in docs]
 
     try:
-        response = index.query(
+        response = indexx.query(
             vector=[0] * dimension,
             top_k=1,
             include_values=False,  # include vector values
@@ -116,7 +129,7 @@ def pinecone_upload(
             namespace=namespace,
             filter={"uid": metadata_list[0]["uid"]},
         )
-
+        
         if len(response["matches"]) > 0:
             logging.info(f"UID already in pinecone{metadata_list[0]['uid']}")
             print("UID already exists in pinecone")
@@ -135,13 +148,11 @@ def pinecone_upload(
         chunk_ids = ids[i: i + 30]
         chunk_metadatas = metadata_list[i: i + 30]
 
-        
-        from sentence_transformers import SentenceTransformer
-        embedding = SentenceTransformer(embedding_model)
         try:
             dense_values = []
             for chunk in chunk_texts:
-                dense_values.append(embedding.encode(chunk))
+                val=embed_text([chunk])
+                dense_values.append(val)
         except Exception as e:
             logging.error(f"Error at embedding docs: {e}")
             continue
@@ -150,9 +161,8 @@ def pinecone_upload(
         data = get_vectordata(chunk_ids,
                               chunk_metadatas,
                               dense_values,)
-
         for i in range(0, len(data), 128):
-            index.upsert(namespace=namespace, vectors=data[i:i + 128])
+            indexx.upsert(namespace=namespace, vectors=data[i:i + 128])
 
 def get_vectordata(chunk_ids, chunk_metadatas, dense_values, sparse_vectors = None):
     """
@@ -167,18 +177,22 @@ def get_vectordata(chunk_ids, chunk_metadatas, dense_values, sparse_vectors = No
     data = []
     if sparse_vectors is None:
         for (id, metadata, dense) in zip(chunk_ids, chunk_metadatas, dense_values):
+            flattened_dense = [item for sublist in dense for item in sublist]  # Flatten the dense list
+
             data.append(
                 {'id': f'vec{id}',
-                'values': dense,
+                'values': flattened_dense,
                 'metadata': metadata,
                 }
             )
     else:
 
         for (id, metadata, dense, sp) in zip(chunk_ids, chunk_metadatas, dense_values, sparse_vectors):
+            flattened_dense = [item for sublist in dense for item in sublist]  # Flatten the dense list
+
             data.append(
                 {'id': f'vec{id}',
-                'values': dense,
+                'values': flattened_dense,
                 'metadata': metadata,
                 'sparse_values': {
                     'indices': sp["indices"],

@@ -13,8 +13,8 @@ from typing import Dict, List, Optional
 import aiofiles
 from fastapi import FastAPI, File, Form, UploadFile, Depends, HTTPException, Request
 import json
-from data_loader import load_documents
-from upload import upload_data
+from src.data_loader import load_documents
+from src.upload import upload_data
 import logging
 from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
 logging.basicConfig(level=logging.INFO)

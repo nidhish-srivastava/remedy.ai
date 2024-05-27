@@ -192,11 +192,6 @@ python-dotenv==1.0.1
 python-jose==3.3.0
 python-json-logger==2.0.7
 python-multipart==0.0.9
-pytz==2024.1
-pywin32==306
-pywinpty==2.0.10
-PyYAML==6.0.1
-pyzmq==25.1.0
 qtconsole==5.4.3
 QtPy==2.3.1
 regex==2023.12.25

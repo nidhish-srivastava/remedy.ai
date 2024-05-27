@@ -12,16 +12,18 @@ const groq = new Groq({
 function DietPlan() {
   const [dietPlan, setDietPlan] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [status,setStatus] = useState("")
   // const [diseases, setDiseases] = useState([]);
   // const diseases = ["Headache", "Piles", "Low sugar","Ulcer","High BP"];
   useEffect(() => {
     const storedDiseases = localStorage.getItem("disease");
     // setDiseases(storedDiseases)
-    if (storedDiseases.length > 0) {
+    if (storedDiseases?.length > 0) {
       const parsedDiseases = JSON.parse(storedDiseases);
       // setDiseases(parsedDiseases)
       fetchDietPlanHandler(parsedDiseases)
     }
+    else setStatus("No relevant details as of now from user to suggest a diet plan!!!")
   }, []);
 
   const fetchDietPlanHandler = async (parsedDiseases) => {
@@ -74,6 +76,9 @@ function DietPlan() {
           </div>
         )}
       </div>
+      <h2 className="text-center">
+      {status}
+      </h2>
     </div>
   );
 }

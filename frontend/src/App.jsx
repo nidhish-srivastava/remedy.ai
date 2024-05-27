@@ -11,7 +11,6 @@ import MyProfile from "./pages/MyProfile"
 import ChatDetail from "./pages/ChatDetail"
 import DietPlan from "./pages/DietPlan"
 import ExerciseRoutines from "./pages/ExerciseRoutines"
-import DoDonts from "./pages/DoDonts"
 import Premium from "./pages/Premium"
 
 const routes = [{
@@ -54,10 +53,6 @@ const routes = [{
   path : "/exercise-routine",
   element : <ExerciseRoutines/>
 },
-// {
-//   path : "/do-don'ts",
-//   element : <DoDonts/>
-// },
 {
   path : "/premium-chat",
   element : <Premium/>

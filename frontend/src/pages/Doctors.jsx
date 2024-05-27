@@ -15,7 +15,6 @@ function Doctors() {
   const [isFound, setIsFound] = useState(false);
 
   const handleSearch = async () => {
-    let specialty = "";
     setLoading(true);
     try {
       const response = await fetch(`${SINHA_API_URL}/best-speciality`, {
@@ -27,17 +26,18 @@ function Doctors() {
       });
       if (response.ok) {
         const data = await response.json();
-        const parsedData = data.bot_answer.data.split("> ")[1];
-        console.log(parsedData);
+        console.log(data.bot_answer.data.split("> "));
+        const parsedData = data.bot_answer.data.split("> ")[1].replace(/\s+/g, '');
         if (parsedData == "No doctors found") {
           setLoading(false);
           return;
         }
-        const filteredDoctors = doctors.filter(
-          (doctor) => doctor.Specialty == parsedData
-        );
-        setSearchedDoctors(filteredDoctors);
-        setLoading(false);
+          const filteredDoctors = doctors.filter(
+            (doctor) => doctor.Specialty == parsedData
+          );
+          // console.log(filteredDoctors);
+          setSearchedDoctors(filteredDoctors);
+          setLoading(false);
       }
     } catch (error) {
       setLoading(false);

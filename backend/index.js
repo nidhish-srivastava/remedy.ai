@@ -9,26 +9,28 @@ dotenv.config();
 const app = express();
 app.use(express.json())
 app.use(cookieParser())
-const port = process.env.PORT || 8000
 app.use(cors({
+    // origin: "https://remedy-nmithacks-frontend.vercel.app",
     origin: "http://localhost:5173",
     credentials: true
 }))
-const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI)
-        console.log('MongoDB connection SUCCESS')
-    }
-    catch (error) {
-        console.error('MongoDB connection FAIL')
-    }
-}
 
+
+
+const PORT = process.env.PORT || 8000
+
+const start = async () => {
+    mongoose.connect(process.env.MONGO_URI)
+    console.log("Connected to DB");
+    app.listen(PORT, () => {
+        console.log(`Server listening at port ${PORT}`);
+    })
+}
+start()
+
+app.get('/',async(req,res)=>{
+    res.send(`Welcome to Backend deployment of remedy`)
+})
 
 app.use("/api/v1/auth",authRoute)
 app.use("/api/v1/chat",chatRoute)
-
-app.listen(port, () => {
-    connectDB();
-    console.log(`Server is running on port ${port}`)
-})

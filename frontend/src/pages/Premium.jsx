@@ -10,12 +10,14 @@ function Premium() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [filename,setFileName] = useState("")
+  const [uploadStatus,setUploadStatus] = useState(false)
 
   const fileInputRef = useRef(null);
 
   const handleFileChange = async (event) => {
     // Handle the file input change event
     const file = event.target.files[0];
+    setUploadStatus(true)
     setFileName("Uploading...")
     // console.log(file);
     if (file) {
@@ -41,11 +43,13 @@ function Premium() {
           throw new Error("Failed to upload file");
         }
         console.log("after response checking error");
+        setUploadStatus(false)
         setFileName(`${file.name} uploaded successfully`)
         // Handle success response if needed
       } catch (error) {
         console.error("Error uploading file:", error.message);
         // Handle error if needed
+        setUploadStatus(false)
       }
     }
   };
@@ -89,7 +93,7 @@ function Premium() {
               setMessages(newMessages);
             console.log(data);
           } catch (error) {
-            
+            setLoading(false)
           }
       }
     }

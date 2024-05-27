@@ -45,7 +45,7 @@ function Login() {
       }
       const data = await response.json();
       toast.success(data.message);
-      navigate("/home");
+      navigate("/chat");
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {

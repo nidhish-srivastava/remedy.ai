@@ -41,21 +41,21 @@ const authenticatedNavItems = [
 ]
 
 const features = [
-    {
-      title : "Find a doctor",
-      description : "Struggling to find the right healthcare professional? Our extensive database and smart search capabilities will guide you to the right medical professional.",
-      animation : finddoctorsanimation
-    },
-    {
-      title : "Medical Report",
-      description : "Understanding your medical report can be overwhelming. You can ask detailed questions about your health reports and receive clear, concise explanations",
-      animation : medicalreportanimation
-    },
-    {
-      title : "Chatbot",
-      description : "Chat with our AI chatbot for instant health-related answers, lifestyle tips, and medical resources. It's like having a 24/7 health expert for personalized support and recommendations.",
-      animation : chatbotanimation
-    }
+  {
+    title : "Chatbot",
+    description : "Chat with our AI chatbot for instant health-related answers, lifestyle tips, and medical resources. It's like having a 24/7 health expert for personalized support and recommendations.",
+    animation : chatbotanimation
+  },
+  {
+    title : "Medical Report",
+    description : "Understanding your medical report can be overwhelming. You can ask detailed questions about your health reports and receive clear, concise explanations",
+    animation : medicalreportanimation
+  },
+  {
+    title : "Find a doctor",
+    description : "Struggling to find the right healthcare professional? Our extensive database and smart search capabilities will guide you to the right medical professional.",
+    animation : finddoctorsanimation
+  },
   ]
 
   const homePageFeatures = [
@@ -90,11 +90,12 @@ const APP_NAME = "remedy"
 
 const fallbackDp = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
 
+// const BASE_URL = `https://remedy-nmithacks.vercel.app/api/v1`
 const BASE_URL = `http://localhost:5000/api/v1`
 
-const SINHA_API_URL = "https://65b0-36-255-14-6.ngrok-free.app"
+const SINHA_API_URL = "https://7097-36-255-14-6.ngrok-free.app"
 
-const AKASH_API_URL = "https://df5a-36-255-14-6.ngrok-free.app"
+const AKASH_API_URL = "https://c3a8-117-205-71-6.ngrok-free.app"
 
 
 export {headerNavItems,BASE_URL,authenticatedNavItems,APP_NAME,features,fallbackDp,homePageFeatures,SINHA_API_URL,AKASH_API_URL}

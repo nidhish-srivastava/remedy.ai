@@ -12,6 +12,7 @@ const groq = new Groq({
 function ExerciseRoutines() {
   const [loading, setLoading] = useState(false);
   const [exerciseRoutines,setExerciseRoutines] = useState([])
+  const [status,setStatus] = useState("")
   const fetchExercisePlan = async (parsedDiseases) => {
     setLoading(true);
     const chatCompletion = await groq.chat.completions.create({
@@ -31,11 +32,12 @@ function ExerciseRoutines() {
   useEffect(() => {
     const storedDiseases = localStorage.getItem("disease");
     // setDiseases(storedDiseases)
-    if (storedDiseases.length > 0) {
+    if (storedDiseases?.length > 0) {
       const parsedDiseases = JSON.parse(storedDiseases);
       // setDiseases(parsedDiseases)
       fetchExercisePlan(parsedDiseases);
     }
+    else setStatus("No relevant details as of now from user to suggest exercise routines!!!")
   }, []);
   console.log(typeof exerciseRoutines);
   return (
@@ -53,7 +55,7 @@ function ExerciseRoutines() {
       {exerciseRoutines?.map((exercise, index) => (
         <div
           key={index}
-          className="bg-zinc-600 text-white max-w-[200px] p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center justify-center"
+          className="bg-zinc-600 text-white w-[200px] p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex items-center justify-center"
         >
           <div className="text-center">
             <h2 className="text-lg font-semibold">{exercise}</h2>
@@ -63,6 +65,9 @@ function ExerciseRoutines() {
     </div>
           )
         }
+      </div>
+      <div className="text-center">
+      {status}
       </div>
     </div>
   );

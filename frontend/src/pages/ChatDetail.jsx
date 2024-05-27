@@ -5,7 +5,9 @@ import useFetchHook from "../hooks/useFetch.hook";
 import { BASE_URL, SINHA_API_URL } from "../utils/constants";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
+import LottieReact from "lottie-react"
 import ChatInput from "../components/ui/chatinput";
+import loadinganimation from "../assets/loading.json"
 
 function ChatDetail() {
   const [messages, setMessages] = useState([]);
@@ -120,8 +122,10 @@ function ChatDetail() {
                 {message.text}
               </div>
             ))}
-            {
-              loading && "Loading"
+            {loading && 
+            <div className="w-2/5 mx-auto">
+            <LottieReact animationData = {loadinganimation}/>
+            </div>
             }
             {/* {fileName} */}
             {/* <div ref={messagesEndRef} /> */}

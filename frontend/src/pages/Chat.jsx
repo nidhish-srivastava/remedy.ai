@@ -5,7 +5,8 @@ import { useAuthContextHook } from "../context";
 import ChatHistorySidebar from "../components/ChatHistorySidebar";
 import { useNavigate } from "react-router-dom";
 import ChatInput from "../components/ui/chatinput";
-
+import loadinganimation from "../assets/loading.json"
+import LottieReact from "lottie-react"
 function Chat() {
   const [messages, setMessages] = useState([]);
   const { userInfo } = useAuthContextHook();
@@ -122,7 +123,11 @@ function Chat() {
                 {message.text}
               </div>
             ))}
-            {loading && "Loading"}
+            {loading && 
+            <div className="w-2/5 mx-auto">
+            <LottieReact animationData = {loadinganimation}/>
+            </div>
+            }
           </div>
           {/* Chat input bar */}
           <ChatInput

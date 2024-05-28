@@ -5,10 +5,9 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const groq = new Groq({
-  apiKey:import.meta.env.VITE_GROQ_API_KEY,
+  apiKey: import.meta.env.VITE_GROQ_API_KEY,
   dangerouslyAllowBrowser : true
 });
-
 function ExerciseRoutines() {
   const [loading, setLoading] = useState(false);
   const [exerciseRoutines,setExerciseRoutines] = useState([])

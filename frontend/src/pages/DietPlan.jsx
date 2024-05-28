@@ -5,21 +5,23 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Groq } from "groq-sdk";
 
 const groq = new Groq({
-  apiKey:import.meta.env.VITE_GROQ_API_KEY,
+  apiKey: import.meta.env.VITE_GROQ_API_KEY,
   dangerouslyAllowBrowser : true
 });
 
 function DietPlan() {
-  const [dietPlan, setDietPlan] = useState(false);
+  const [dietPlan, setDietPlan] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status,setStatus] = useState("")
   // const [diseases, setDiseases] = useState([]);
   // const diseases = ["Headache", "Piles", "Low sugar","Ulcer","High BP"];
   useEffect(() => {
     const storedDiseases = localStorage.getItem("disease");
+    console.log(storedDiseases);
     // setDiseases(storedDiseases)
     if (storedDiseases?.length > 0) {
       const parsedDiseases = JSON.parse(storedDiseases);
+      console.log(parsedDiseases);
       // setDiseases(parsedDiseases)
       fetchDietPlanHandler(parsedDiseases)
     }
@@ -32,16 +34,28 @@ function DietPlan() {
         messages: [
           {
             role: "user",
-            content: `Give me a diet plan if i am having the following diseases and medical problems : ${parsedDiseases}.I want the response in json format with the disease name as key and its plans as array of strings.Dont give any other response please,just the way i want`,
+            content: `Give me a diet plan if i am having the following diseases and medical problems : ${parsedDiseases}.Just give me 5 points in numbers,no other response,not in the beginning and not in the end,just the 5 points`,
           },
         ],
         model: "mixtral-8x7b-32768",
       });
       const response = chatCompletion.choices[0]?.message?.content;
-      const result = JSON.parse(response);
+      const result = parseNumberedPoints(response)
+// console.log(response);
+      // const result = JSON.parse(response);
+      // console.log(result);
       setDietPlan(result);
       setLoading(false);
   };
+
+  console.log(dietPlan);
+  function parseNumberedPoints(inputString) {
+    // Split the input string by the numbered points using a regular expression
+    const points = inputString.split(/\d+\.\s*/).filter(Boolean);
+  
+    // Trim any extra whitespace from each point
+    return points.map(point => point.trim());
+  }
 
   return (
     <div className="">
@@ -63,17 +77,30 @@ function DietPlan() {
             <Skeleton count={3} />
           </div>
         ) : (
-          <div className="w-4/5 flex gap-6 flex-wrap mx-auto mt-8">
-            {Object.entries(dietPlan).map(
-              ([condition, recommendations], index) => (
-                <DietPlanCard
+          // {/* //   {Object.entries(dietPlan).map(
+          //   //     ([condition, recommendations], index) => (
+          //     //       <DietPlanCard
+          //     //         key={index}
+          //     //         condition={condition}
+          //     //         recommendations={recommendations}
+          //     //       />
+          //     //     )
+          //   //   )} */}
+            <div className="w-4/5 flex gap-6 flex-wrap mx-auto mt-8">
+            {
+              dietPlan?.map((e, index) => (
+                <div 
                   key={index}
-                  condition={condition}
-                  recommendations={recommendations}
-                />
-              )
-            )}
+                  className="mx-auto max-w-[500px] bg-zinc-700 text-white shadow-lg rounded-lg transform hover:scale-105 transition-transform duration-300 ease-in-out border border-gray-300 p-6"
+                >
+                  <li className="list-none">
+                    {e}
+                  </li>
+                </div>
+              ))
+            }
           </div>
+          
         )}
       </div>
       <h2 className="text-center">
@@ -85,19 +112,19 @@ function DietPlan() {
 
 export default DietPlan;
 
-const DietPlanCard = ({ condition, recommendations }) => {
-  return (
-    <div className="mx-auto max-w-[500px] bg-zinc-800 text-white shadow-md overflow-hidden  rounded-lg transform hover:scale-105 transition-transform duration-300 ease-in-out border border-gray-200">
-      <div className="px-6 py-5">
-        <h2 className="text-xl font-semibold text-white mb-4">{condition}</h2>
-        <ul className="list-disc ml-6">
-          {recommendations.map((recommendation, index) => (
-            <li key={index} className="text-gray-400">
-              {recommendation}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-};
+// const DietPlanCard = ({ condition, recommendations }) => {
+//   return (
+//     <div className="mx-auto max-w-[500px] bg-zinc-800 text-white shadow-md overflow-hidden  rounded-lg transform hover:scale-105 transition-transform duration-300 ease-in-out border border-gray-200">
+//       <div className="px-6 py-5">
+//         <h2 className="text-xl font-semibold text-white mb-4">{condition}</h2>
+//         <ul className="list-disc ml-6">
+//           {recommendations.map((recommendation, index) => (
+//             <li key={index} className="text-gray-400">
+//               {recommendation}
+//             </li>
+//           ))}
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };

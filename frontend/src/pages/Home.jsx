@@ -23,28 +23,28 @@ function Home() {
       console.log(data.answer);
     } catch (error) {}
   };
-  useEffect(() => {
-    const namespacePushHandler = async () => {
-      try {
-        const response = await fetch(`${AKASH_API_URL}/set_namespace`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ set_namespace: userInfo.email }),
-        });
-        console.log("before try");
-        if (!response.ok) throw new Error("Errror fetching");
-        console.log("success");
-      } catch {}
-    };
-    if (userInfo?.email?.length > 0) {
-      namespacePushHandler();
-      setTimeout(()=>{
-        fetchDiseaseHandler();
-      },200)
-    }
-  }, []);
+  // useEffect(() => {
+  //   const namespacePushHandler = async () => {
+  //     try {
+  //       const response = await fetch(`${AKASH_API_URL}/set_namespace`, {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ set_namespace: userInfo.email }),
+  //       });
+  //       console.log("before try");
+  //       if (!response.ok) throw new Error("Errror fetching");
+  //       console.log("success");
+  //     } catch {}
+  //   };
+  //   if (userInfo?.email?.length > 0) {
+  //     namespacePushHandler();
+  //     setTimeout(()=>{
+  //       fetchDiseaseHandler();
+  //     },200)
+  //   }
+  // }, []);
   return (
     <div>
       <AuthNavbar />

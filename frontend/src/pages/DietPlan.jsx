@@ -34,7 +34,7 @@ function DietPlan() {
         messages: [
           {
             role: "user",
-            content: `Give me a diet plan if i am having the following diseases and medical problems : ${parsedDiseases}.Just give me 5 points in numbers,no other response,not in the beginning and not in the end,just the 5 points`,
+            content: `Give me a diet plan if i am having the following diseases and medical problems : ${parsedDiseases}.Just give me atleast 5 points in numbers and max of 8 points,no other response,not in the beginning and not in the end,just the 5 points`,
           },
         ],
         model: "mixtral-8x7b-32768",

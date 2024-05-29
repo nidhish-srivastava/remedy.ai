@@ -36,7 +36,6 @@ function ChatInput({
         rows={input?.split("\n").length > 5 ? 5 : 1}
       />
       <button
-        disabled={input.length == 0}
         className="absolute right-10 text-2xl cursor-pointer pr-1 top-7"
         onClick={handleSendMessage}
       >

@@ -1,73 +1,49 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import AuthNavbar from "../components/AuthNavbar";
 import Button from "../components/ui/button";
 import { doctors } from "../assets/merged_file";
 import DoctorCard from "../components/DoctorCard";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { SINHA_API_URL } from "../utils/constants";
-import noresult from "../assets/noresults.png";
+import { Groq } from "groq-sdk";
+
+const groq = new Groq({
+  apiKey: import.meta.env.VITE_GROQ_API_KEY,
+  dangerouslyAllowBrowser: true,
+});
 
 function Doctors() {
   const [query, setQuery] = useState("");
   const [searchedDoctors, setSearchedDoctors] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isFound, setIsFound] = useState(false);
 
-  const handleSearch = async () => {
-    setLoading(true);
-    try {
-      const response = await fetch(`${SINHA_API_URL}/best-speciality`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ description: query }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.bot_answer.data.split("> "));
-        const parsedData = data.bot_answer.data.split("> ")[1].replace(/\s+/g, '');
-        if (parsedData == "No doctors found") {
-          setLoading(false);
-          return;
-        }
-          const filteredDoctors = doctors.filter(
-            (doctor) => doctor.Specialty == parsedData
-          );
-          // console.log(filteredDoctors);
-          setSearchedDoctors(filteredDoctors);
-          setLoading(false);
+  const handleSearch = async (e) => {
+    if ((e.key === "Enter" && !e.shiftKey) || e.type=="click") {
+      e.preventDefault();
+      if (query.trim() !== "") {
+        setLoading(true);
+        const chatCompletion = await groq.chat.completions.create({
+          messages: [
+            {
+              role: "user",
+              content: `You are a medical problem specialist . Give name of speciality of the medical problem that the patient is having : ${query}.Don't give answers out of medical speciality.I want a one word answer only,no other type of response and explaination,just the name of speciality.If the query doesn't pertain to patient's condition then return that ask relevant questions`,
+            },
+          ],
+          model: "mixtral-8x7b-32768",
+        });
+        const response = chatCompletion.choices[0]?.message?.content;
+        const specialist = response.split(".")[0];
+        console.log(specialist);
+        const filteredDoctors = doctors.filter(
+          (doctor) => doctor.Specialty == specialist
+        );
+        console.log(filteredDoctors);
+        setSearchedDoctors(filteredDoctors);
+        setLoading(false);
       }
-    } catch (error) {
-      setLoading(false);
     }
   };
 
-  // useEffect(()=>{
-  //   if(query.length==0){
-  //     setLoading(false)
-  //     setIsClicked(false)
-  //   }
-  // },[query])
-  // const trimmedQuery = query.trim();
-  // if (trimmedQuery) {
-  //   const regex = new RegExp(trimmedQuery, "i");
-  //   const filteredDoctors = doctors.filter((doctor) =>
-  //     regex.test(doctor.Name)
-  //   );
-  //   setSearchedDoctors(filteredDoctors);
-  // } else {
-  //   setSearchedDoctors([]);
-  // }
-  // useEffect(() => {
-  //   if(query.length==0) setSearchedDoctors([])
-  //   const debounce = setTimeout(() => {
-  //       handleSearch();
-  //   }, 3000);
-  //   return () => clearTimeout(debounce);
-  // }, [query]);
-  console.log(searchedDoctors);
   return (
     <div>
       <AuthNavbar />
@@ -80,6 +56,7 @@ function Doctors() {
               placeholder="Search for doctors"
               className="w-full py-4 pl-2 pr-2 focus:outline-none  placeholder:text-head bg-transparent outline-none"
               value={query}
+              onKeyDown={handleSearch}
               onChange={(e) => setQuery(e.target.value)}
             />
             <Button className="py-4 px-4 rounded-md" onClick={handleSearch}>

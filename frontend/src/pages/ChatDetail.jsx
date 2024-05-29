@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar";
 import ChatHistorySidebar from "../components/ChatHistorySidebar";
 import useFetchHook from "../hooks/useFetch.hook";
-import { BASE_URL, SINHA_API_URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 import { toast } from "react-toastify";
 import { useEffect, useRef, useState } from "react";
 import LottieReact from "lottie-react"
@@ -28,7 +28,7 @@ function ChatDetail() {
   const [language,setLanguage] = useState(null)
 
   const handleSendMessage = async (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if ((e.key === "Enter" && !e.shiftKey) || e.type=="click") {
       e.preventDefault();
       if (input.trim() !== "") {
         console.log("start");

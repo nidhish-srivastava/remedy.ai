@@ -25,7 +25,7 @@ function Chat() {
   const [language,setLanguage] = useState(null)
 
   const handleSendMessage = async (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if ((e.key === "Enter" && !e.shiftKey) || e.type=="click") {
       e.preventDefault();
       if (input.trim() !== "") {
         setLoading(true);

@@ -1,20 +1,15 @@
-import { useRef } from "react";
+// import { useRef } from "react";
+// import { MdAttachFile } from "react-icons/md";
 import { BiSend } from "react-icons/bi";
-import { MdAttachFile } from "react-icons/md";
 
 function ChatInput({
   input,
   setInput,
-  handleSendMessage,
-  setFileName,
-  fileName,
-  language,
-  setLanguage,
+  handleSendMessage
 }) {
   
   return (
     <div className="fixed bottom-0 right-8 w-4/5 px-[2rem] py-[1rem]">
-      {/* <button onClick={queryFromPdfHandler}>Test</button> */}
       {/* <input
         type="file"
         ref={fileInputRef}

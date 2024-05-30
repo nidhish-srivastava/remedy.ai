@@ -20,9 +20,7 @@ function Chat() {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
   const [isNewChat, setIsNewChat] = useState(false);
-  const [fileName, setFileName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [language,setLanguage] = useState(null)
 
   const handleSendMessage = async (e) => {
     if ((e.key === "Enter" && !e.shiftKey) || e.type=="click") {
@@ -92,6 +90,10 @@ function Chat() {
     "Distinguishing arthritis from aging joint pain?",
   ];
 
+  const dummyQueriesClickHandler = (dummyQuery)=>{
+    setInput(dummyQuery)
+  }
+
   return (
     <div className="">
       <AuthNavbar />
@@ -103,7 +105,7 @@ function Chat() {
             <div className="flex gap-4 justify-center mt-24 cursor-pointer">
               {dummyQueries.map((e) => (
                 <div
-                  onClick={() => setInput(e)}
+                  onClick={() => dummyQueriesClickHandler(e)}
                   className="border-[1px] flex w-[200px]  hover:bg-slate-500 border-white text-white text-opacity-40 hover:text-opacity-100 rounded-2xl py-3 border-opacity-20 gap-12 bg-transparent"
                 >
                   {e}
@@ -134,9 +136,6 @@ function Chat() {
           </div>
           {/* Chat input bar */}
           <ChatInput
-            setFileName={setFileName}
-            language={language}
-            setLanguage={setLanguage}
             handleSendMessage={handleSendMessage}
             input={input}
             setInput={setInput}

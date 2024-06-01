@@ -3,7 +3,7 @@ import Authanimation from "../components/ui/authanimation";
 import Button from "../components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, RAG_BACKEND_URL } from "../utils/constants";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -43,6 +43,8 @@ function Login() {
         }
         return;
       }
+      await namespacePushHandler();
+      await fetchDiseaseHandler();
       const data = await response.json();
       toast.success(data.message);
       navigate("/chat");
@@ -51,6 +53,36 @@ function Login() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const namespacePushHandler = async () => {
+    try {
+      const response = await fetch(`${RAG_BACKEND_URL}/set_namespace`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ set_namespace: formData.email }),
+      });
+      console.log("before try");
+      if (!response.ok) throw new Error("Errror fetching");
+      console.log("namespace set successfully");
+    } catch {}
+  };
+
+  const fetchDiseaseHandler = async () => {
+    try {
+      const response = await fetch(`${RAG_BACKEND_URL}/get_disease`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      // if(!response.ok) throw new Error("Error fetching user diseases")
+      const data = await response.json();
+      localStorage.setItem("disease", JSON.stringify(data.answer));
+      console.log(data.answer);
+    } catch (error) {}
   };
 
   return (

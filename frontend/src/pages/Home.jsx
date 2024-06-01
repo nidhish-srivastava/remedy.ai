@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import AuthNavbar from "../components/AuthNavbar";
-import { AKASH_API_URL, homePageFeatures } from "../utils/constants";
+import { RAG_BACKEND_URL, homePageFeatures } from "../utils/constants";
 import { useEffect } from "react";
 import { useAuthContextHook } from "../context";
 // Diet PLan
@@ -9,41 +9,14 @@ import { useAuthContextHook } from "../context";
 
 function Home() {
   const { userInfo } = useAuthContextHook();
-  const fetchDiseaseHandler = async () => {
-    try {
-      const response = await fetch(`${AKASH_API_URL}/get_disease`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      // if(!response.ok) throw new Error("Error fetching user diseases")
-      const data = await response.json();
-      localStorage.setItem("disease", JSON.stringify(data.answer));
-      console.log(data.answer);
-    } catch (error) {}
-  };
-  // useEffect(() => {
-  //   const namespacePushHandler = async () => {
-  //     try {
-  //       const response = await fetch(`${AKASH_API_URL}/set_namespace`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ set_namespace: userInfo.email }),
-  //       });
-  //       console.log("before try");
-  //       if (!response.ok) throw new Error("Errror fetching");
-  //       console.log("success");
-  //     } catch {}
-  //   };
-  //   if (userInfo?.email?.length > 0) {
-  //     namespacePushHandler();
-  //     setTimeout(()=>{
-  //       fetchDiseaseHandler();
-  //     },200)
-  //   }
+ 
+    //     useEffect(() => {
+    // if (userInfo?.email?.length > 0) {
+      // namespacePushHandler();
+      // setTimeout(()=>{
+        //   fetchDiseaseHandler();
+        // },200)
+      // }
   // }, []);
   return (
     <div>

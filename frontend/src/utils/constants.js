@@ -93,9 +93,7 @@ const fallbackDp = "https://icon-library.com/images/anonymous-avatar-icon/anonym
 // const BASE_URL = `https://remedy-nmithacks.vercel.app/api/v1`
 const BASE_URL = `http://localhost:5000/api/v1`
 
-const SINHA_API_URL = "https://7097-36-255-14-6.ngrok-free.app"
-
-const AKASH_API_URL = "https://c3a8-117-205-71-6.ngrok-free.app"
+const RAG_BACKEND_URL = "http://localhost:8080"
 
 
-export {headerNavItems,BASE_URL,authenticatedNavItems,APP_NAME,features,fallbackDp,homePageFeatures,SINHA_API_URL,AKASH_API_URL}
+export {headerNavItems,BASE_URL,authenticatedNavItems,APP_NAME,features,fallbackDp,homePageFeatures,RAG_BACKEND_URL}

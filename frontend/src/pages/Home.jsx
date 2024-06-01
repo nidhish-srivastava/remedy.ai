@@ -9,15 +9,27 @@ import { useAuthContextHook } from "../context";
 
 function Home() {
   const { userInfo } = useAuthContextHook();
- 
-    //     useEffect(() => {
-    // if (userInfo?.email?.length > 0) {
-      // namespacePushHandler();
-      // setTimeout(()=>{
-        //   fetchDiseaseHandler();
-        // },200)
-      // }
-  // }, []);
+
+  // const fetchDiseaseHandler = async () => {
+  //   try {
+  //     const response = await fetch(`${RAG_BACKEND_URL}/get_disease`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     // if(!response.ok) throw new Error("Error fetching user diseases")
+  //     const data = await response.json();
+  //     localStorage.setItem("disease", JSON.stringify(data.answer));
+  //     console.log(data.answer);
+  //   } catch (error) {}
+  // };
+
+  // useEffect(()=>{
+  //   // Only fetch diseases when diseases array is empty
+  //   fetchDiseaseHandler()
+  // },[])
+  
   return (
     <div>
       <AuthNavbar />

@@ -1,50 +1,44 @@
 import { useRef, useState } from "react";
 import AuthNavbar from "../components/AuthNavbar";
-import ChatHistorySidebar from "../components/ChatHistorySidebar";
 import { MdAttachFile } from "react-icons/md";
-import { BiSend } from "react-icons/bi";
-import { AKASH_API_URL } from "../utils/constants";
+import { RAG_BACKEND_URL } from "../utils/constants";
 import Lottie from "lottie-react";
 import uploadanimation from "../assets/uploadinganimation.json";
+import loadinganimation from "../assets/loading.json";
+
 function Premium() {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [filename, setFileName] = useState("");
-  const [uploadStatus, setUploadStatus] = useState(false);
 
   const fileInputRef = useRef(null);
 
   const handleFileChange = async (event) => {
     // Handle the file input change event
     const file = event.target.files[0];
-    setUploadStatus(true);
     setFileName("Uploading");
     // console.log(file);
     if (file) {
       // console.log("Selected file:", file.name);
       // Assuming you're using fetch for API calls, you can update the backend here
       const formData = new FormData();
-
       formData.append("files", file);
       const metadata = { content: "Medical report" };
       formData.append("metadata", JSON.stringify(metadata));
-      console.log("before try catch", formData);
       try {
-        const response = await fetch(`${AKASH_API_URL}/upload/files`, {
+        const response = await fetch(`${RAG_BACKEND_URL}/upload/files`, {
           method: "POST",
           body: formData,
           // Add headers if required, e.g., for authentication
         });
-        console.log("after response");
         if (!response.ok) {
           throw new Error("Failed to upload file");
         }
-        setUploadStatus(false);
         setFileName(`${file.name} uploaded successfully`);
       } catch (error) {
         console.log(error);
-        setFileName("Upload Error")
+        setFileName("Upload Error");
       }
     }
   };
@@ -64,7 +58,7 @@ function Premium() {
         setInput("");
         console.log("before try");
         try {
-          const response = await fetch(`${AKASH_API_URL}/get_response`, {
+          const response = await fetch(`${RAG_BACKEND_URL}/get_response`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -80,7 +74,6 @@ function Premium() {
             { text: data?.answer, sender: "bot" }, // right now dummy response,i will get it from ml
           ];
           setMessages(newMessages);
-          console.log(data);
         } catch (error) {
           setLoading(false);
         }
@@ -90,19 +83,29 @@ function Premium() {
   return (
     <div>
       <AuthNavbar />
+      {/* <div className="fixed bottom-10">
+        {filename == "Uploading" ? (
+          <div className="w-40 ">
+            <Lottie animationData={uploadanimation} />
+          </div>
+        ) : (
+          <h2 className="text-lg text-wrap max-w-[70%] mx-auto text-white font-medium">{filename}</h2>
+        )}
+      </div> */}
       <div className="text-center flex lg:w-full bg-[#282c34] text-white">
-        <ChatHistorySidebar />
+        <div className="p-[10px] bg-[#202123] min-w-[14%] min-h-screen relative">
+          <div className="absolute bottom-10">
+        {filename == "Uploading" ? (
+          <div className="w-40 ">
+            <Lottie animationData={uploadanimation} />
+          </div>
+        ) : (
+          <h2 className="text-lg w-[90%] text-white font-medium">{filename}</h2>
+        )}
+        </div>
+        </div>
         <section className="flex-1 relative bg-[rgb(52,53,65)] flex flex-col pt-8">
           <div className="flex-1 px-[4rem] mb-24 overflow-y-auto">
-            {filename == "Uploading" ? (
-              <div className="w-40 mx-auto">
-                <Lottie animationData={uploadanimation} />
-              </div>
-            ) : (
-              <h2 className="text-lg font-medium">
-                {filename}
-              </h2>
-            )}
             {messages?.map((message, index) => (
               <div
                 key={index}
@@ -115,7 +118,11 @@ function Premium() {
                 {message.text}
               </div>
             ))}
-            {loading && "Loading"}
+            {loading && (
+              <div className="w-1/5 mx-auto">
+                <Lottie animationData={loadinganimation} />
+              </div>
+            )}
             {/* {fileName} */}
             {/* <div ref={messagesEndRef} /> */}
           </div>

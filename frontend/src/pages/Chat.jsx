@@ -105,6 +105,7 @@ function Chat() {
             <div className="flex gap-4 justify-center mt-24 cursor-pointer">
               {dummyQueries.map((e) => (
                 <div
+                key={e}
                   onClick={() => dummyQueriesClickHandler(e)}
                   className="border-[1px] flex w-[200px]  hover:bg-slate-500 border-white text-white text-opacity-40 hover:text-opacity-100 rounded-2xl py-3 border-opacity-20 gap-12 bg-transparent"
                 >

@@ -8,14 +8,14 @@ import { BASE_URL } from "../utils/constants";
 
 function SignUp() {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     name: "",
     gender: "",
     occupation: "",
-    age : ""
+    age: "",
   });
 
   const handleInputChange = async (e) => {
@@ -38,7 +38,7 @@ function SignUp() {
         body: JSON.stringify(formData),
         credentials: "include",
       });
-      if (res.status==409) {
+      if (res.status == 409) {
         throw new Error("Something went wrong");
       }
       const { message } = await res.json();
@@ -99,34 +99,36 @@ function SignUp() {
               />
             </div>
             <div className="flex gap-6">
-            <select
-              id="gender"
-              name="gender"
-              className="input"
-              value={formData.gender}
-              onChange={handleInputChange}
+              <select
+                id="gender"
+                name="gender"
+                className="input"
+                value={formData.gender}
+                onChange={handleInputChange}
               >
-              <option value="" disabled>
-                Select
-              </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-            <input
+                <option value="" disabled>
+                  Select
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+              <input
                 type="number"
                 placeholder="Enter your Age"
                 name="age"
                 min={0}
                 value={formData.age}
-                onChange={(e) => setFormData({
-                  ...formData,
-                  age: e.target.value === "" ? "" : Number(e.target.value)
-                })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    age: e.target.value === "" ? "" : Number(e.target.value),
+                  })
+                }
                 required
                 className="input"
               />
-              </div>
+            </div>
             <div className="">
               <input
                 type="text"

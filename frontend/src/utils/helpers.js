@@ -5,5 +5,5 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 export function getCookie(){
-  return document.cookie.split("accessToken=")[1].split(";")[0];   // Yep, it's a string
+  return document.cookie.split("accessToken=")[1].split(";")[0];
 }

@@ -10,8 +10,7 @@ const app = express();
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    // origin: "https://remedy-nmithacks-frontend.vercel.app",
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","https://remedy-ai.vercel.app"],
     credentials: true
 }))
 

@@ -2,7 +2,7 @@ import finddoctorsanimation from "../assets/finddoctors.json"
 import medicalreportanimation from "../assets/medicalreportanimation.json"
 import chatbotanimation from "../assets/chatbotanimation.json"
 import diet from "../assets/diet.jpg"
-import dodonts from "../assets/dodonts.png"
+// import dodonts from "../assets/dodonts.png"
 import exercise from "../assets/exercise.jpg"
 import chatbot from "../assets/chatbot.png"
 
@@ -90,8 +90,8 @@ const APP_NAME = "remedy"
 
 const fallbackDp = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
 
-// const BASE_URL = `https://remedy-nmithacks.vercel.app/api/v1`
-const BASE_URL = `http://localhost:5000/api/v1`
+const BASE_URL = `https://remedy-ai-backend.vercel.app`
+// const BASE_URL = `http://localhost:5000/api/v1`
 
 const RAG_BACKEND_URL = "http://localhost:8080"
 

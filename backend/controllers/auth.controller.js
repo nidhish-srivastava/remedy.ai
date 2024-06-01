@@ -48,9 +48,10 @@ const login = asyncHandler(async (req, res) => {
     }
     const accessToken = generateToken(user);
     const options = {
-        // httpOnly: true,
-        secure: true
-    }
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None' // Required for cross-site cookies
+    };
     return res
     .status(200)
     .cookie("accessToken", accessToken, options)

@@ -12,6 +12,7 @@ function Landing() {
   const { data, error, loading } = useFetchHook(
     `${BASE_URL}/auth/current-user`
   );
+  console.log(data);
   if(data!=null) navigate("/home")
   return (
     <div>

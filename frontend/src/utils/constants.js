@@ -90,7 +90,7 @@ const APP_NAME = "remedy"
 
 const fallbackDp = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
 
-const BASE_URL = `https://remedy-ai-backend.vercel.app`
+const BASE_URL = `https://remedy-ai-backend.vercel.app/api/v1`
 // const BASE_URL = `http://localhost:5000/api/v1`
 
 const RAG_BACKEND_URL = "http://localhost:8080"

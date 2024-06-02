@@ -11,7 +11,7 @@ A comprehensive AI-powered platform designed to provide instant health-related a
 ### AI ML
 - **Retrieval Augmented Generation (RAG)**: Implemented in a FastAPI backend.
 - **Vector Embeddings**: Created using BGE models on Hugging Face and stored in Pinecone.
-- **Langchain**: Used for processing and handling PDFs and breaking them down into chunks.
+- **Langchain**: Used for processing and handling medical report PDFs and breaking them down into chunks.
 - **Gemini 1.5 vision**: Used to perform Optical Character Recognition (OCR) when medical report images are uploaded.
 - **OpenAI**: Employed to refine and organize the responses retrieved from Pinecone.
 - **Groq**: Used to generate responses for the medical chatbot, exercise routines, and diet plans using the Mistral 8x22 model.

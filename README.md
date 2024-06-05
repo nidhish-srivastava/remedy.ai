@@ -9,7 +9,8 @@ A comprehensive AI-powered platform designed to provide instant health-related a
 - **Backend** - **Express.js** , **MongoDB**
 
 ### AI ML
-- **Retrieval Augmented Generation (RAG)**: Implemented in a FastAPI backend.
+ 
+- **Retrieval Augmented Generation (RAG)**: Implemented in a FastAPI backend to combine information retrieval from a large document corpus with generative response capabilities, enhancing accuracy and relevance.
 - **Vector Embeddings**: Created using BGE models on Hugging Face and stored in Pinecone.
 - **Langchain**: Used for processing and handling medical report PDFs and breaking them down into chunks.
 - **Gemini 1.5 vision**: Used to perform Optical Character Recognition (OCR) when medical report images are uploaded.

@@ -35,8 +35,8 @@ const authenticatedNavItems = [
         name : "Chat"
     },
     {
-      path : "/premium-chat",
-      name : "Try Premium"
+      path : "/medical-report",
+      name : "Medical Report"
     }
 ]
 

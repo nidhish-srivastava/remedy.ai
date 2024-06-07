@@ -43,11 +43,13 @@ function Login() {
         }
         return;
       }
-      await namespacePushHandler();
+      else{
+        await namespacePushHandler();
       await fetchDiseaseHandler();
-      const data = await response.json();
-      toast.success(data.message);
-      navigate("/chat");
+    const data = await response.json();
+  toast.success(data.message);
+navigate("/home");
+}
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {

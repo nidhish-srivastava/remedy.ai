@@ -6,7 +6,7 @@ import Lottie from "lottie-react";
 import uploadanimation from "../assets/uploadinganimation.json";
 import loadinganimation from "../assets/loading.json";
 
-function Premium() {
+function MedicalReport() {
   const [loading, setLoading] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
@@ -162,4 +162,4 @@ function Premium() {
   );
 }
 
-export default Premium;
+export default MedicalReport;

@@ -11,7 +11,7 @@ import MyProfile from "./pages/MyProfile"
 import ChatDetail from "./pages/ChatDetail"
 import DietPlan from "./pages/DietPlan"
 import ExerciseRoutines from "./pages/ExerciseRoutines"
-import Premium from "./pages/Premium"
+import MedicalReport from "./pages/MedicalReport"
 
 const routes = [{
   path : "/",
@@ -54,8 +54,8 @@ const routes = [{
   element : <ExerciseRoutines/>
 },
 {
-  path : "/premium-chat",
-  element : <Premium/>
+  path : "/medical-report",
+  element : <MedicalReport/>
 }
 ]
 

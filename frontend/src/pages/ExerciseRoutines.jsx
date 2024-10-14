@@ -31,7 +31,7 @@ function ExerciseRoutines() {
   useEffect(() => {
     const storedDiseases = localStorage.getItem("disease");
     // setDiseases(storedDiseases)
-    if (storedDiseases?.length > 0) {
+    if (storedDiseases?.length > 0 && storedDiseases!="undefined") {
       const parsedDiseases = JSON.parse(storedDiseases);
       // setDiseases(parsedDiseases)
       fetchExercisePlan(parsedDiseases);

@@ -28,7 +28,6 @@ function SignUp() {
   const submitHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
-
     try {
       const res = await fetch(`${BASE_URL}/auth/register`, {
         method: "post",
@@ -41,6 +40,7 @@ function SignUp() {
       if (res.status == 409) {
         throw new Error("Something went wrong");
       }
+
       const { message } = await res.json();
       setLoading(false);
       toast.success(message);

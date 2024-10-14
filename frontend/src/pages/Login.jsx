@@ -44,8 +44,8 @@ function Login() {
         return;
       }
       else{
-        await namespacePushHandler();
-      await fetchDiseaseHandler();
+        // await namespacePushHandler();
+      // await fetchDiseaseHandler();
     const data = await response.json();
   toast.success(data.message);
 navigate("/home");

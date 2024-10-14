@@ -3,8 +3,8 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const createNewChat = asyncHandler(async (req, res) => {
-    const { messages, userId } = req.body
-    const response = await ChatModel.create({ messages, userId })
+    const { messages, userId,service } = req.body
+    const response = await ChatModel.create({ messages, userId,service })
     return res.json(new ApiResponse(201, response, "Created new chat successfully"))
 }
 )
@@ -14,7 +14,6 @@ const updateChat = asyncHandler(async (req, res) => {
     const {messages} = req.body
     const response = await ChatModel.updateOne({_id : chatId},{messages : messages})
     if(response?.modifiedCount>0){
-        console.log(true);
         return res.status(201).json(new ApiResponse(201,null,"Chat updated successfully"))
     }
 })

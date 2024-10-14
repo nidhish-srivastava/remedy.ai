@@ -13,16 +13,10 @@ function DietPlan() {
   const [dietPlan, setDietPlan] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status,setStatus] = useState("")
-  // const [diseases, setDiseases] = useState([]);
-  // const diseases = ["Headache", "Piles", "Low sugar","Ulcer","High BP"];
   useEffect(() => {
     const storedDiseases = localStorage.getItem("disease");
-    console.log(storedDiseases);
-    // setDiseases(storedDiseases)
-    if (storedDiseases?.length > 0) {
-      const parsedDiseases = JSON.parse(storedDiseases);
-      console.log(parsedDiseases);
-      // setDiseases(parsedDiseases)
+    if (storedDiseases?.length > 0 && storedDiseases!="undefined") {
+      const parsedDiseases = JSON?.parse(storedDiseases);
       fetchDietPlanHandler(parsedDiseases)
     }
     else setStatus("No relevant details as of now from user to suggest a diet plan!!!")

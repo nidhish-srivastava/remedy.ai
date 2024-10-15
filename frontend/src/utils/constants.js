@@ -77,6 +77,12 @@ const features = [
       description : "Access exercise routines designed for your health condition.",
       path : "/exercise-routine"
     },
+    {
+      heading : "Synthetic Data Generator",
+      image : diet,
+      description : "Generate Synthetic Data",
+      path : "/synthetic-data-generator"
+    }
     // {
     //   heading : "Health Do's and Don'ts",
     //   image : dodonts,

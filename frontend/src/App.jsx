@@ -12,6 +12,7 @@ import ChatDetail from "./pages/ChatDetail";
 import DietPlan from "./pages/DietPlan";
 import ExerciseRoutines from "./pages/ExerciseRoutines";
 import MedicalReport from "./pages/MedicalReport";
+import SyntheticDataGenerator from "./pages/SyntheticDataGenerator";
 
 const routes = [
   {
@@ -58,6 +59,10 @@ const routes = [
     path: "/medical-report",
     element: <MedicalReport />,
   },
+  {
+    path : "/synthetic-data-generator",
+    element : <SyntheticDataGenerator/>
+  }
 ];
 
 function App() {

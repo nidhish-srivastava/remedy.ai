@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useAuthContextHook } from "../context";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Wrapper from "../components/Wrapper";
 
 function Chat() {
@@ -35,6 +35,8 @@ function Chat() {
       createChatHandler();
     }
   }, [servicename]);
+
+
 
   const services = [
     {
@@ -77,47 +79,9 @@ function Chat() {
             </div>
           </>
         )}
-        {/* General service ui */}
-        {servicename == "general" && (
-          <div className="flex gap-4 justify-center mt-12 mb-6 cursor-pointer">
-            {dummyQueries.map((e) => (
-              <div
-                key={e}
-                onClick={() => dummyQueriesClickHandler(e)}
-                className="border-[1px] flex w-[200px]  hover:bg-slate-500 border-white text-white text-opacity-40 hover:text-opacity-100 rounded-2xl py-3 border-opacity-20 gap-12 bg-transparent"
-              >
-                {e}
-              </div>
-            ))}
-          </div>
-        )}
-        {servicename == "chest-x-ray" && (
-          <div>
-            <p className="text-xl font-medium">Chest X Ray</p>
-          </div>
-        )}
-        {servicename == "dermatology" && (
-          <div>
-            <p className="text-xl font-medium">Dermatology</p>
-          </div>
-        )}
       </section>
     </Wrapper>
   );
 }
 
 export default Chat;
-
-// const groq = new Groq({
-//   apiKey: import.meta.env.VITE_GROQ_API_KEY,
-//   dangerouslyAllowBrowser : true
-// });
-// const dummyQueries = [
-//   "Symptoms & relief for seasonal allergies?",
-//   "Home remedies for migraine relief?",
-//   "Latest cancer treatment advancements?",
-//   "Distinguishing arthritis from aging joint pain?",
-// ];
-// const dummyQueriesClickHandler = (dummyQuery)=>{
-//   setInput(dummyQuery)
-// }

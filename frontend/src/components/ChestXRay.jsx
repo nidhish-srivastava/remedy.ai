@@ -1,9 +1,5 @@
-import { useState } from "react";
 
-function ChestXRay({handleSendMessage}) {
-    const [clinicalIndication, setClinicalIndication] = useState("");
-    const [techniqueSection, setTechniqueSection] = useState("");
-    const [comparison, setComparison] = useState("");
+function ChestXRay({setLateralImage,setFrontalImage,handleSendMessage,clinicalIndication,techniqueSection,comparison,setClinicalIndication,setTechniqueSection,setComparison}) {
    
   return (
     <div className="space-y-2">
@@ -14,7 +10,7 @@ function ChestXRay({handleSendMessage}) {
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={handleSendMessage}
+                    onChange={(e)=>handleSendMessage(e,setFrontalImage)}
                   />
                 </label>
 
@@ -24,7 +20,7 @@ function ChestXRay({handleSendMessage}) {
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onChange={handleSendMessage}
+                    onChange={(e)=>handleSendMessage(e,setLateralImage)}
                   />
                 </label>
               </div>

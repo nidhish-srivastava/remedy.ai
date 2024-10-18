@@ -27,7 +27,7 @@ function Chat() {
     });
     if (response.ok) {
       const data = await response.json();
-      navigate(`/chat/${data?.data?._id}`);
+      navigate(`/chat/${data?.data}`);
     }
   };
   useEffect(() => {

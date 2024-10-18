@@ -26,8 +26,7 @@ const register = asyncHandler(async (req, res) => {
     return res.status(201).json(
         new ApiResponse(200, createdUser, "User registered Successfully")
     )
-}
-)
+})
 
 const generateToken = user=> {
 	return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {

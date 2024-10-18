@@ -6,14 +6,16 @@ import { AuroraBackground } from "../components/ui/aurorobackground";
 import useFetchHook from "../hooks/useFetch.hook";
 import { BASE_URL } from "../utils/constants";
 import Footer from "../components/Landing/Footer";
+import { useEffect } from "react";
 
 function Landing() {
   const navigate = useNavigate()
   const { data, error, loading } = useFetchHook(
-    `${BASE_URL}/auth/current-user`
+    `${BASE_URL}/user/current-user`
   );
-  console.log(data);
-  if(data!=null) navigate("/home")
+  useEffect(()=>{
+    if(data!=null) navigate("/home")
+  },[data])
   return (
     <div>
       <AuroraBackground>

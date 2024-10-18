@@ -104,9 +104,10 @@ const APP_NAME = "remedy"
 
 const fallbackDp = "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
 
-const BASE_URL = "http://localhost:5000/api/v1"
+const BASE_URL = import.meta.env.VITE_BASE_URL
 
-const RAG_BACKEND_URL = "http://localhost:8080"
+const RAG_BACKEND_URL = import.meta.env.VITE_RAG_BACKEND_URL
 
+const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL
 
-export { headerNavItems, BASE_URL, authenticatedNavItems, APP_NAME, features, fallbackDp, homePageFeatures, RAG_BACKEND_URL }
+export { headerNavItems, BASE_URL, authenticatedNavItems, APP_NAME, features, fallbackDp, homePageFeatures, RAG_BACKEND_URL,FASTAPI_URL }

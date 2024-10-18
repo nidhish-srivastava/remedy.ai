@@ -11,7 +11,7 @@ function AuthNavbar() {
   const modalRef = useRef();
   const {setUserInfo} = useAuthContextHook()
   const { data, error, loading } = useFetchHook(
-    `${BASE_URL}/auth/current-user`
+    `${BASE_URL}/user/current-user`
   );
   useEffect(()=>{
     setUserInfo(data)
@@ -19,7 +19,7 @@ function AuthNavbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const logoutHandler = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/logout`, {
+      const response = await fetch(`${BASE_URL}/user/logout`, {
         method: "POST",
         credentials: "include",
       });

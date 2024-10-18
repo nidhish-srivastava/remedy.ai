@@ -25,13 +25,13 @@ function Login() {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`${BASE_URL}/auth/login`, {
+      const response = await fetch(`${BASE_URL}/user/login`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
+        credentials: "include"
       });
       if (!response.ok) {
         if (response.status == 404) {

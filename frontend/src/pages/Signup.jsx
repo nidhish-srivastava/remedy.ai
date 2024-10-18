@@ -29,9 +29,9 @@ function SignUp() {
     event.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(`${BASE_URL}/auth/register`, {
+      const res = await fetch(`${BASE_URL}/user/register`, {
         method: "post",
-        headers: {
+        headers: {  
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
@@ -40,10 +40,9 @@ function SignUp() {
       if (res.status == 409) {
         throw new Error("Something went wrong");
       }
-
-      const { message } = await res.json();
+      const data = await res.json();
       setLoading(false);
-      toast.success(message);
+      toast.success(data.message);
       navigate("/login");
     } catch (err) {
       toast.error("User already exists");

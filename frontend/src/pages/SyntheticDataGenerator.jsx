@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AuthNavbar from "../components/AuthNavbar";
+import { FASTAPI_URL } from "../utils/constants";
 
 function SyntheticDataGenerator() {
   const [numItems, setNumItems] = useState("")
@@ -22,7 +23,7 @@ function SyntheticDataGenerator() {
       setIsGenerating(true)
       if(selectedButtonId<=3){
         response = await fetch(
-          `https://e74d-2409-40f2-32-9d26-89f8-e19d-3283-84ff.ngrok-free.app/${endpoint}`,
+          `${FASTAPI_URL}/${endpoint}`,
           {
             method: "POST",
             body: JSON.stringify({
@@ -36,7 +37,7 @@ function SyntheticDataGenerator() {
       }
       else{
         response = await fetch(
-          `https://e74d-2409-40f2-32-9d26-89f8-e19d-3283-84ff.ngrok-free.app/${endpoint}`,
+          `${FASTAPI_URL}/${endpoint}`,
           {
             method: "POST",
             body: JSON.stringify({

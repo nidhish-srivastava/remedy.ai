@@ -8,12 +8,14 @@ function ChatHistorySidebar() {
   const { userInfo } = useAuthContextHook();
 
   const fetchAllChatsHandler = async () => {
-    if (userInfo?._id?.length > 0) {
-      const response = await fetch(`${BASE_URL}/chat/${userInfo?._id}`);
+    try {
+      const response = await fetch(`${BASE_URL}/chat/${userInfo._id}`);
       if (response.ok) {
         const data = await response.json();
         setChatHistory(data?.data);
       }
+    } catch (error) {
+      console.log(error);
     }
   };
   useEffect(() => {

@@ -9,7 +9,7 @@ function Features() {
     <div className='flex gap-6 flex-col items-center w-full mt-12'>
       {
         features.map((e,i)=>(
-          <div className={`flex w-full ${i%2==0 ? "sm:flex-row-reverse" : "sm:flex-row"} flex-col justify-center sm:gap-48 sm:w-4/5 mx-auto px-6 pb-12`}>
+          <div key={i} className={`flex w-full ${i%2==0 ? "sm:flex-row-reverse" : "sm:flex-row"} flex-col justify-center sm:gap-48 sm:w-4/5 mx-auto px-6 pb-12`}>
           <div className="w-full sm:w-[30%]">
             <Lottie animationData={e.animation}/>
           </div>
